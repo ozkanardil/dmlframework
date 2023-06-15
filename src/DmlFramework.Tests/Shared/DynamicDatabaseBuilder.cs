@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DmlFramework.Domain.Entities;
 using DmlFramework.Persistance.Context;
 
@@ -24,33 +19,6 @@ namespace DmlFramework.Tests.Shared
             config.Setup(x => x.GetSection("SomeSection")).Returns(new Mock<IConfigurationSection>().Object);
 
             var context = new DatabaseContext(options, config.Object);
-
-            context.Categories.AddRange(new List<CategoryEntity>
-            {
-                new CategoryEntity { Id = 1, Name = "Category 1" },
-                new CategoryEntity { Id = 2, Name = "Category 2" },
-                new CategoryEntity { Id = 3, Name = "Category 3" }
-            });
-
-            context.Products.AddRange(new List<ProductEntity>
-            {
-                new ProductEntity { Id = 1, Name = "Product-1", Description = "Desc-1", Price = 11, Category_Id = 1 },
-                new ProductEntity { Id = 2, Name = "Product-2", Description = "Desc-2", Price = 12, Category_Id = 1 },
-                new ProductEntity { Id = 3, Name = "Product-3", Description = "Desc-3", Price = 13, Category_Id = 1 }
-            });
-
-            context.Orders.AddRange(new List<OrderEntity>
-            {
-                new OrderEntity { Id = 1, OrderDate = new DateTime(2023, 04, 09), UserId=1, Status = 1, Amount=121, PaymentMethod="Cart" },
-                new OrderEntity { Id = 2, OrderDate = new DateTime(2023, 04, 11), UserId=1, Status = 1, Amount=122, PaymentMethod="Cart" },
-            });
-
-            context.OrderItem.AddRange(new List<OrderItemEntity>
-            {
-                new OrderItemEntity { Id = 1, OrderId = 1, ProductId = 1, Quantity = 1, Price=11 },
-                new OrderItemEntity { Id = 2, OrderId = 1, ProductId = 2, Quantity = 1, Price=12 },
-                new OrderItemEntity { Id = 3, OrderId = 2, ProductId = 1, Quantity = 2, Price=11 },
-            });
 
             context.User.AddRange(new List<UserEntity>
             {

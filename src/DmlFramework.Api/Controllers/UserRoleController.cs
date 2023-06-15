@@ -1,12 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using DmlFramework.Application.Features.Product.Commands;
-using DmlFramework.Application.Features.User.Commands;
-using DmlFramework.Application.Features.User.Models;
-using DmlFramework.Application.Features.User.Queries;
-using System.Data;
 using DmlFramework.Application.Features.UserRole.Command;
 using DmlFramework.Application.Features.UserRole.Queries;
 using DmlFramework.Application.Features.UserRole.Models;

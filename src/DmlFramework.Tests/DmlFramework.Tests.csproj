@@ -31,5 +31,9 @@
     <ProjectReference Include="..\DmlFramework.Persistance\DmlFramework.Persistance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
+
 
 </Project>

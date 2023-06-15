@@ -1,10 +1,6 @@
-using MediatR;
-using DmlFramework.Application.Features.Category.Models;
-using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using DmlFramework.Persistance.Context;
 using DmlFramework.Application;
 using DmlFramework.Domain.Entities;
 using DmlFramework.Infrastructure;

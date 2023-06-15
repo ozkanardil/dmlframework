@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using DmlFramework.Application.Features.Product.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DmlFramework.Application.Features.UserRole.Constant;
 using DmlFramework.Infrastructure.Results;
 using DmlFramework.Persistance.Context;

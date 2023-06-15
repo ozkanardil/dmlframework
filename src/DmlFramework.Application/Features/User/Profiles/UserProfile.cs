@@ -2,13 +2,6 @@
 using DmlFramework.Application.Features.User.Commands;
 using DmlFramework.Application.Features.User.Models;
 using DmlFramework.Domain.Entities;
-using DmlFramework.Application.Features.Product.Commands;
-using DmlFramework.Application.Features.Product.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DmlFramework.Application.Features.User.Profiles
 {
