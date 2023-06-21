@@ -14,5 +14,6 @@ namespace DmlFramework.Domain.Entities
         public int RoleId { get; set; }
         public virtual UserEntity User { get; set; }
         public virtual RoleEntity Role { get; set; }
+
     }
 }

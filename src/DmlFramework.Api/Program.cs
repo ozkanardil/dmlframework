@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.GetSection("ApplicationSettings").Get<ApplicationSettings>();
 builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
-// JWT TOKEN kullanmak icin eklenen kodlar
+// JWT TOKEN implemention codes
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
               .AddJwtBearer(options =>
               {
