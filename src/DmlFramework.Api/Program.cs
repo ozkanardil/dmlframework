@@ -8,6 +8,11 @@ using DmlFramework.Infrastructure.CustomExceptionFilter;
 using DmlFramework.Infrastructure.Security.JwtToken;
 using DmlFramework.Infrastructure.LogEntries;
 using DmlFramework.Persistance;
+using FluentValidation.AspNetCore;
+using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using DmlFramework.Infrastructure.Errors.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +47,26 @@ builder.Services.AddControllers(config =>
 {
     config.Filters.Add(typeof(LogFilter));
     config.Filters.Add(typeof(ExceptionFilter));
-});
+})
+     .ConfigureApiBehaviorOptions(options =>
+     {
+         options.InvalidModelStateResponseFactory = context =>
+         {
+             var errors = context.ModelState.Values
+                 .SelectMany(v => v.Errors)
+                 .Select(e => JsonSerializer.Deserialize<ErrorResult>(e.ErrorMessage));
+             return new BadRequestObjectResult(errors.FirstOrDefault());
+         };
+     })
+   .AddFluentValidation(options =>
+   {
+       // Validate child properties and root collection elements
+       options.ImplicitlyValidateChildProperties = true;
+       options.ImplicitlyValidateRootCollectionElements = true;
+
+       // Automatic registration of validators in assembly
+       options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+   });
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

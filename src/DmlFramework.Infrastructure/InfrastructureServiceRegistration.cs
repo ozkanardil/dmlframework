@@ -9,6 +9,8 @@ using DmlFramework.Infrastructure.Security.JwtToken;
 using DmlFramework.Infrastructure.Errors.Middleware;
 using DmlFramework.Infrastructure.CustomExceptionFilter;
 using DmlFramework.Infrastructure.LogEntries;
+using FluentValidation.AspNetCore;
+using DmlFramework.Infrastructure.Errors.Interceptor;
 
 namespace DmlFramework.Infrastructure
 {
@@ -22,6 +24,8 @@ namespace DmlFramework.Infrastructure
 
             services.AddTransient<LogFilter>();
             services.AddTransient<ExceptionFilter>();
+
+            services.AddTransient<IValidatorInterceptor, UseCustomErrorModelInterceptor>();
 
             return services;
 
