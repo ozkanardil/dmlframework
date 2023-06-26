@@ -9,12 +9,12 @@ using DmlFramework.Persistance.Context;
 
 namespace DmlFramework.Application.Features.User.Queries
 {
-    public class GetUserQuery : IRequest<IRequestDataResult<IEnumerable<UserResponse>>>
+    public class GetUserByEmailQuery : IRequest<IRequestDataResult<IEnumerable<UserResponse>>>
     {
-
+        public string userEmail { get; set; }
     }
 
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, IRequestDataResult<IEnumerable<UserResponse>>>
+    public class GetUserQueryHandler : IRequestHandler<GetUserByEmailQuery, IRequestDataResult<IEnumerable<UserResponse>>>
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
@@ -24,9 +24,9 @@ namespace DmlFramework.Application.Features.User.Queries
             _mapper = mapper;
             _context = context;
         }
-        public async Task<IRequestDataResult<IEnumerable<UserResponse>>> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<IRequestDataResult<IEnumerable<UserResponse>>> Handle(GetUserByEmailQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.User.Where(u => u.Status == 1).ToListAsync();
+            var result = await _context.User.Where(u => u.Status == 1 && u.Email == request.userEmail).ToListAsync();
             var response = _mapper.Map<IEnumerable<UserResponse>>(result);
 
             if (!response.Any())

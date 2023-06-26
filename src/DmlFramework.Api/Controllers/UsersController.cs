@@ -22,7 +22,7 @@ namespace DmlFramework.Api.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(IRequestDataResult<IEnumerable<UserResponse>>))]
-        public async Task<IActionResult> GetAsync([FromQuery] GetUserQuery request)
+        public async Task<IActionResult> GetAsync([FromQuery] GetUserByEmailQuery request)
         {
             var res = await _mediator.Send(request);
             return Ok(res);
