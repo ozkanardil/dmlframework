@@ -6,7 +6,7 @@ using DmlFramework.Persistance.Context;
 
 namespace DmlFramework.Tests.Shared
 {
-    public class DynamicDatabaseBuilder
+    public class DatabaseBuilder
     {
 
         public DatabaseContext CreateDatabaseContext()
@@ -25,6 +25,17 @@ namespace DmlFramework.Tests.Shared
                 new UserEntity { Id = 1, Name = "Name-1", Surname = "Surname-1", Email = "gmail1", Password="111", Status = 1 },
                 new UserEntity { Id = 2, Name = "Name-2", Surname = "Surname-2", Email = "gmail2", Password="222", Status = 1 },
                 new UserEntity { Id = 3, Name = "Name-3", Surname = "Surname-3", Email = "gmail3", Password="333", Status = 1 },
+            });
+
+            context.Role.AddRange(new List<RoleEntity>
+            {
+                new RoleEntity { Id = 1, Role = "Admin" },
+                new RoleEntity { Id = 2, Role = "User" },
+            });
+
+            context.UserRole.AddRange(new List<UserRoleEntity>
+            {
+                new UserRoleEntity { Id = 1, UserId = 1, RoleId = 1 },
             });
 
             context.SaveChanges();
