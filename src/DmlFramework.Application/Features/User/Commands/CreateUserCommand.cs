@@ -11,6 +11,12 @@ namespace DmlFramework.Application.Features.User.Commands
 {
     public class CreateUserCommand : UserModel, IRequest<IRequestResult>
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public int Status { get; set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, IRequestResult>
@@ -38,9 +44,9 @@ namespace DmlFramework.Application.Features.User.Commands
             int numAffectedRecords = await _context.SaveChangesAsync(cancellationToken);
 
             if (numAffectedRecords == 0)
-                return new ErrorRequestResult(Messages.UserAddError);
+                return new ErrorRequestResult(UserMessages.UserAddError);
 
-            return new SuccessRequestResult(Messages.UserAddSuccess);
+            return new SuccessRequestResult(UserMessages.UserAddSuccess);
         }
     }
 }
