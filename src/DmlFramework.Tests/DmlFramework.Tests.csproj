@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DmlFramework.Api\DmlFramework.Api.csproj" />
     <ProjectReference Include="..\DmlFramework.Application\DmlFramework.Application.csproj" />
     <ProjectReference Include="..\DmlFramework.Domain\DmlFramework.Domain.csproj" />
     <ProjectReference Include="..\DmlFramework.Persistance\DmlFramework.Persistance.csproj" />

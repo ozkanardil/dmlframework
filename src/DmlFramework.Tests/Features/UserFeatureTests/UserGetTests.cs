@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using DmlFramework.Api.Validators;
+using DmlFramework.Application.Features.User.Commands;
 using DmlFramework.Application.Features.User.Queries;
+using DmlFramework.Infrastructure.Errors.Errors;
 using DmlFramework.Infrastructure.Results;
 using DmlFramework.Persistance.Context;
 using DmlFramework.Tests.Shared;
@@ -10,17 +13,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DmlFramework.Tests.Features
+namespace DmlFramework.Tests.Features.UserFeatureTests
 {
-    public class UserTests : IDisposable
+    [Collection("UserFeatureTestsCollection")]
+    public class UserGetTests : IDisposable
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly GetUserByEmailQueryValidator _getUserByEmailQueryValidator;
 
-        public UserTests()
+        public UserGetTests()
         {
             _mapper = MapperBuilder.UserMapper();
             _context = new DatabaseBuilder().CreateDatabaseContext();
+            _getUserByEmailQueryValidator = new GetUserByEmailQueryValidator();
         }
 
         public void Dispose()
@@ -29,11 +35,30 @@ namespace DmlFramework.Tests.Features
             _context.Dispose();
         }
 
-        [Fact]
-        public async Task User_By_Email_Address_Test()
+        [Theory]
+        [InlineData("")]
+        [InlineData("a")]
+        [InlineData("@a")]
+        [InlineData("a@")]
+        [InlineData("aa.com")]
+        public void Get_User_By_Email_Address_Validation_Test(string email)
         {
             // Arrange
-            GetUserByEmailQuery getUserQuery = new GetUserByEmailQuery() { userEmail = "gmail1"};
+            GetUserByEmailQuery getUserQuery = new GetUserByEmailQuery();
+            getUserQuery.userEmail = email;
+
+            //Act
+            bool result = _getUserByEmailQueryValidator.Validate(getUserQuery).IsValid;
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task Get_User_By_Email_Address_Test()
+        {
+            // Arrange
+            GetUserByEmailQuery getUserQuery = new GetUserByEmailQuery() { userEmail = "gmail1" };
             var handler = new GetUserQueryHandler(_mapper, _context);
 
             //Act
@@ -46,7 +71,7 @@ namespace DmlFramework.Tests.Features
         }
 
         [Fact]
-        public async Task User_By_Email_Address_Not_Exist_Test()
+        public async Task Get_User_By_Email_Address_Not_Exist_Test()
         {
             // Arrange
             GetUserByEmailQuery getUserQuery = new GetUserByEmailQuery() { userEmail = "gmail0" };
