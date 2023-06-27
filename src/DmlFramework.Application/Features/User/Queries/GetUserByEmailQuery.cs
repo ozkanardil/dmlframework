@@ -30,9 +30,9 @@ namespace DmlFramework.Application.Features.User.Queries
             var response = _mapper.Map<IEnumerable<UserResponse>>(result);
 
             if (!response.Any())
-                return new ErrorRequestDataResult<IEnumerable<UserResponse>>(response, Messages.UserNoRecord);
+                return new ErrorRequestDataResult<IEnumerable<UserResponse>>(response, UserMessages.UserNoRecord);
 
-            return new SuccessRequestDataResult<IEnumerable<UserResponse>>(response, Messages.UserListed); ;
+            return new SuccessRequestDataResult<IEnumerable<UserResponse>>(response, UserMessages.UserListed); ;
         }
     }
 }
