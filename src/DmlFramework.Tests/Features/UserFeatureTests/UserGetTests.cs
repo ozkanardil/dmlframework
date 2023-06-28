@@ -58,7 +58,7 @@ namespace DmlFramework.Tests.Features.UserFeatureTests
         public async Task Get_User_By_Email_Address_Test()
         {
             // Arrange
-            GetUserByEmailQuery getUserQuery = new GetUserByEmailQuery() { userEmail = "gmail1" };
+            GetUserByEmailQuery getUserQuery = new GetUserByEmailQuery() { userEmail = "test1@test.com" };
             var handler = new GetUserQueryHandler(_mapper, _context);
 
             //Act

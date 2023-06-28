@@ -22,9 +22,9 @@ namespace DmlFramework.Tests.Shared
 
             context.User.AddRange(new List<UserEntity>
             {
-                new UserEntity { Id = 1, Name = "Name-1", Surname = "Surname-1", Email = "gmail1", Password="111", Status = 1 },
-                new UserEntity { Id = 2, Name = "Name-2", Surname = "Surname-2", Email = "gmail2", Password="222", Status = 1 },
-                new UserEntity { Id = 3, Name = "Name-3", Surname = "Surname-3", Email = "gmail3", Password="333", Status = 1 },
+                new UserEntity { Id = 1, Name = "Name-1", Surname = "Surname-1", Email = "test1@test.com", Password="1111", Status = 1 },
+                new UserEntity { Id = 2, Name = "Name-2", Surname = "Surname-2", Email = "test2@test.com", Password="2222", Status = 1 },
+                new UserEntity { Id = 3, Name = "Name-3", Surname = "Surname-3", Email = "test3@test.com", Password="3333", Status = 1 },
             });
 
             context.Role.AddRange(new List<RoleEntity>
