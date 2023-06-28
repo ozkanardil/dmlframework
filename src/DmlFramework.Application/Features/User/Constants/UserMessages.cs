@@ -10,6 +10,7 @@ namespace DmlFramework.Application.Features.User.Constants
     {
         public static string UserNameInvalid = "User name must not be null or empty.";
         public static string UserSurnameInvalid = "User surname must not be null or empty.";
+        public static string UserIdInvalid = "Enter a valid user Id.";
 
         public static string UserAddError = "User could not be created.";
         public static string UserAddSuccess = "User has been created.";
@@ -18,5 +19,6 @@ namespace DmlFramework.Application.Features.User.Constants
         public static string UserDeleteError = "Users could not be deleted.";
         public static string UserDeleted = "Users has been deleted.";
         public static string UserNotFound = "User not found.";
+        public static string UserAlreadyExist = "User is already exists.";
     }
 }

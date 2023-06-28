@@ -2,30 +2,36 @@
 using DmlFramework.Infrastructure.Errors.Errors;
 using DmlFramework.Application.Features.User.Commands;
 using DmlFramework.Application.Features.User.Constants;
+using DmlFramework.Persistance.Context;
+using Newtonsoft.Json.Linq;
 
 namespace DmlFramework.Application.Features.User.Rules
 {
     public static class GuardUserCreate
     {
-        public static GuardUserCreateClause Against(CreateUserCommand value)
+        public static GuardUserCreateClause Against(CreateUserCommand value, DatabaseContext context)
         {
-            return new GuardUserCreateClause(value);
+            return new GuardUserCreateClause(value, context);
         }
     }
 
     public class GuardUserCreateClause
     {
         private readonly CreateUserCommand _value;
+        private readonly DatabaseContext _context;
 
-        public GuardUserCreateClause(CreateUserCommand value)
+
+        public GuardUserCreateClause(CreateUserCommand value, DatabaseContext context)
         {
             _value = value;
+            _context = context;
         }
 
-        public GuardUserCreateClause Null()
+        public GuardUserCreateClause UserAlreadyExist()
         {
-            if (_value.Name == null || _value.Surname == null || _value.Email == null || _value.Password == null)
-                throw new CustomException(UserMessages.UserNameInvalid, false);
+            var result = _context.User.Where(u=>u.Email == _value.Email).ToList();
+            if (result.Count > 0)
+                throw new CustomException(UserMessages.UserAlreadyExist, false);
 
             return this;
         }

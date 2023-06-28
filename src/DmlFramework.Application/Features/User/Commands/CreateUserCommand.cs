@@ -33,8 +33,8 @@ namespace DmlFramework.Application.Features.User.Commands
         public async Task<IRequestResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
 
-            GuardUserCreate.Against(request)
-                .Null()
+            GuardUserCreate.Against(request, _context)
+                .UserAlreadyExist()
                 .KeepGoing();
 
 
