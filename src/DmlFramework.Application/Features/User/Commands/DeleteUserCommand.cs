@@ -27,16 +27,16 @@ namespace DmlFramework.Application.Features.User.Commands
             var user = _context.User.SingleOrDefault(u => u.Id == request.Id);
 
             if (user == null)
-                return new ErrorRequestResult(Messages.UserNotFound);
+                return new ErrorRequestResult(UserMessages.UserNotFound);
 
             user.Status = 0;
             _context.User.Update(user);
             int numAffectedRecords = await _context.SaveChangesAsync(cancellationToken);
 
             if (numAffectedRecords == 0)
-                return new ErrorRequestResult(Messages.UserDeleteError);
+                return new ErrorRequestResult(UserMessages.UserDeleteError);
 
-            return new SuccessRequestResult(Messages.UserDeleted);
+            return new SuccessRequestResult(UserMessages.UserDeleted);
 
         }
     }
