@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DmlFramework.Api.Validators;
+using DmlFramework.Api.Validators.UserFeatureValidators;
 using DmlFramework.Application.Features.User.Commands;
 using DmlFramework.Application.Features.User.Queries;
 using DmlFramework.Infrastructure.Errors.Errors;
