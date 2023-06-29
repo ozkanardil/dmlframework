@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using DmlFramework.Api.Validators.UserFeatureValidators;
 using DmlFramework.Application.Features.User.Commands;
+using DmlFramework.Application.Features.User.Constants;
+using DmlFramework.Infrastructure.Errors.Errors;
+using DmlFramework.Infrastructure.Results;
 using DmlFramework.Persistance.Context;
 using DmlFramework.Tests.Shared;
 using System;
@@ -69,6 +72,25 @@ namespace DmlFramework.Tests.Features.UserFeatureTests
             Assert.True(resultValidation);
             Assert.True(resultDelete.Success);
             Assert.Equal(1, resultDeletedUserCount);
+        }
+
+        [Theory]
+        [InlineData(5)]
+        [InlineData(6)]
+        public async Task User_Create_Existance_Check_Test(int userId)
+        {
+            // Arrange
+            DeleteUserCommand deleteUserCommand = new DeleteUserCommand();
+            deleteUserCommand.Id = userId;
+            
+            var handler = new DeleteUserCommandHandler(_mapper, _context);
+
+            //Act
+            var result = await handler.Handle(deleteUserCommand, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.Success);
+            Assert.Equal(UserMessages.UserNotFound, result.Message);
         }
     }
 }
