@@ -28,9 +28,9 @@ namespace DmlFramework.Api.Controllers
             return Ok(res);
         }
 
-        [HttpPost("getnotuserrole")]
+        [HttpGet("getnotuserrole")]
         [ProducesResponseType(200, Type = typeof(IRequestDataResult<IEnumerable<UserRoleResponse>>))]
-        public async Task<IActionResult> GetAsync([FromBody] GetNotUserRoleQuery request)
+        public async Task<IActionResult> GetAsync([FromQuery] GetNotUserRoleQuery request)
         {
             var res = await _mediator.Send(request);
             return Ok(res);
