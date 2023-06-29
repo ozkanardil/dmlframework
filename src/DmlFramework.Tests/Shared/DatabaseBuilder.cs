@@ -31,11 +31,21 @@ namespace DmlFramework.Tests.Shared
             {
                 new RoleEntity { Id = 1, Role = "Admin" },
                 new RoleEntity { Id = 2, Role = "User" },
+                new RoleEntity { Id = 3, Role = "Manager" },
             });
 
             context.UserRole.AddRange(new List<UserRoleEntity>
             {
                 new UserRoleEntity { Id = 1, UserId = 1, RoleId = 1 },
+                new UserRoleEntity { Id = 2, UserId = 2, RoleId = 1 },
+                new UserRoleEntity { Id = 3, UserId = 2, RoleId = 2 },
+            });
+
+            context.UserRoleV.AddRange(new List<UserRoleVEntity>
+            {
+                new UserRoleVEntity { Id = 1, UserId = 1, RoleId = 1, Role = "Admin" },
+                new UserRoleVEntity { Id = 2, UserId = 2, RoleId = 1, Role = "Admin" },
+                new UserRoleVEntity { Id = 3, UserId = 2, RoleId = 2, Role = "User" },
             });
 
             context.SaveChanges();

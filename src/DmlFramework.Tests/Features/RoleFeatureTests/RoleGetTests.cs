@@ -42,7 +42,7 @@ namespace DmlFramework.Tests.Features.RoleFeatureTests
 
             // Assert
             Assert.True(result.Success);
-            Assert.Equal(2, result.Data.Count());
+            Assert.Equal(3, result.Data.Count());
         }
     }
 }
