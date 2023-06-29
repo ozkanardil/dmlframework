@@ -10,8 +10,8 @@ namespace DmlFramework.Application.Features.UserRole.Command
 {
     public class CreateUserRoleCommand : IRequest<IRequestResult>
     {
-        public string userEmailAdd { get; set; }
-        public int userRoleIdAdd { get; set; }
+        public string userEmail { get; set; }
+        public int userRoleId { get; set; }
     }
 
     public class CreateUserRoleCommandHandler : IRequestHandler<CreateUserRoleCommand, IRequestResult>
@@ -26,9 +26,9 @@ namespace DmlFramework.Application.Features.UserRole.Command
         }
         public async Task<IRequestResult> Handle(CreateUserRoleCommand request, CancellationToken cancellationToken)
         {
-            var user = _context.User.Where(u => u.Email == request.userEmailAdd).FirstOrDefault();
+            var user = _context.User.Where(u => u.Email == request.userEmail).FirstOrDefault();
             UserRoleEntity roleEntity = new UserRoleEntity();
-            roleEntity.RoleId = request.userRoleIdAdd;
+            roleEntity.RoleId = request.userRoleId;
             roleEntity.UserId = user.Id;
 
             _context.UserRole.Add(roleEntity);

@@ -2,21 +2,15 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using DmlFramework.Infrastructure.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DmlFramework.Application.Features.Role.Models;
 using DmlFramework.Application.Features.Role.Constants;
-using DmlFramework.Infrastructure.Results;
 using DmlFramework.Persistance.Context;
 
 namespace DmlFramework.Application.Features.UserRole.Queries
 {
     public class GetNotUserRoleQuery : IRequest<IRequestDataResult<IEnumerable<RoleResponse>>>
     {
-        public string userEmail { get; set; }
+        public int userId { get; set; }
     }
 
     public class GetNotUserRoleQueryHandler : IRequestHandler<GetNotUserRoleQuery, IRequestDataResult<IEnumerable<RoleResponse>>>
@@ -31,13 +25,13 @@ namespace DmlFramework.Application.Features.UserRole.Queries
         }
         public async Task<IRequestDataResult<IEnumerable<RoleResponse>>> Handle(GetNotUserRoleQuery request, CancellationToken cancellationToken)
         {
-            var selectedUser = await _context.User.FirstOrDefaultAsync(u => u.Email == request.userEmail);
+            var selectedUser = await _context.User.FirstOrDefaultAsync(u => u.Id == request.userId);
 
             if (selectedUser == null)
                 return new SuccessRequestDataResult<IEnumerable<RoleResponse>>(null, Messages.RolesListError);
 
             var userResult = from userOperationClaim in _context.UserRoleV
-                             where userOperationClaim.UserId == selectedUser.Id
+                             where userOperationClaim.UserId == request.userId
                              select userOperationClaim.RoleId;
 
             var result = from OperationClaim in _context.Role

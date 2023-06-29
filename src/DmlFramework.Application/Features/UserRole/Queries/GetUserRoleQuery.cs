@@ -11,7 +11,7 @@ namespace DmlFramework.Application.Features.UserRole.Queries
 {
     public class GetUserRoleQuery : IRequest<IRequestDataResult<IEnumerable<UserRoleResponse>>>
     {
-        public string userEmail { get; set; }
+        public int userId { get; set; }
     }
 
     public class GetUserRoleQueryHandler : IRequestHandler<GetUserRoleQuery, IRequestDataResult<IEnumerable<UserRoleResponse>>>
@@ -26,8 +26,7 @@ namespace DmlFramework.Application.Features.UserRole.Queries
         }
         public async Task<IRequestDataResult<IEnumerable<UserRoleResponse>>> Handle(GetUserRoleQuery request, CancellationToken cancellationToken)
         {
-            int userId = _context.User.SingleOrDefault(u => u.Email == request.userEmail).Id;
-            var result = await _context.UserRoleV.Where(ur => ur.UserId == userId).ToListAsync();
+            var result = await _context.UserRoleV.Where(ur => ur.UserId == request.userId).ToListAsync();
             var response = _mapper.Map<IEnumerable<UserRoleResponse>>(result);
 
             if (!response.Any())
