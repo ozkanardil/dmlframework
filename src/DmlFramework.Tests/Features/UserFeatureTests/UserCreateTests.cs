@@ -85,5 +85,28 @@ namespace DmlFramework.Tests.Features.UserFeatureTests
             Assert.True(result.Success);
             Assert.Equal(4, resultUserCount);
         }
+
+        [Theory]
+        [InlineData(1, "Name-1", "Surname-1", "test1@test.com", "1111", 1)]
+        public async Task User_Create_Existance_Check_Test(int userId, string userName, string userSurname, string userEmail, string userPassword, int userStatus)
+        {
+            // Arrange
+            CreateUserCommand createUserCommand = new CreateUserCommand();
+            createUserCommand.Id = userId;
+            createUserCommand.Name = userName;
+            createUserCommand.Surname = userSurname;
+            createUserCommand.Email = userEmail;
+            createUserCommand.Password = userPassword;
+            createUserCommand.Status = userStatus;
+
+            var handler = new CreateUserCommandHandler(_mapper, _context);
+
+            //Act
+            Func<Task> act = () => handler.Handle(createUserCommand, CancellationToken.None);
+            var exception = await Assert.ThrowsAsync<CustomException>(act);
+
+            // Assert
+            Assert.Equal(UserMessages.UserAlreadyExist, exception.Message);
+        }
     }
 }
